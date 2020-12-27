@@ -1,0 +1,47 @@
+import java.util.Scanner;
+class WrongAge extends Exception {
+    public WrongAge(String s){
+        super(s);
+    }
+}
+class Father {
+    int fatherAge;
+    int sonAge;
+    Father(int fAge, int sAge) throws WrongAge{
+        if(fAge == sAge){
+            throw new WrongAge("Father's age is equal to son's age");
+        }
+		else{
+            this.fatherAge = fAge;
+             this.sonAge = sAge;
+        }
+    }
+}
+class Son extends Father {
+    Son(int fAge, int sAge) throws WrongAge{
+        super(fAge, sAge);
+        if(sAge >= fAge){
+            throw new WrongAge("Sons's age is equal to or greater than father's age");
+        }  
+    }
+    void Display(){
+        System.out.println("Father's age: "+fatherAge);
+        System.out.println("Son's age: "+sonAge);
+    }
+}
+public class exp {
+    public static void main(String[] args){
+        int fAge,sAge;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter father's age: ");
+        fAge = sc.nextInt();
+        System.out.println("Enter sons's age: ");
+        sAge = sc.nextInt();
+        try{
+            Son son = new Son(fAge, sAge);
+            son.Display();
+        }catch(WrongAge err){
+            System.out.println("Exception " + err);
+        }
+    }    
+}
